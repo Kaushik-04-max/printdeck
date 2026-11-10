@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#43a047</color>
-    <color name="primaryLightColor">#76d275</color>
-    <color name="primaryDarkColor">#00701a</color>
-    <color name="secondaryColor">#1976d2</color>
-    <color name="secondaryLightColor">#63a4ff</color>
-    <color name="secondaryDarkColor">#004ba0</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#ffffff</color>
+    <!-- PrintDeck palette: warm ink surfaces, ember accent, sage secondary -->
+    <color name="bg">#1A1512</color>
+    <color name="surface">#241E1B</color>
+    <color name="surface2">#2E2723</color>
+    <color name="line">#3A312C</color>
+    <color name="accent">#E4572E</color>
+    <color name="accentDark">#C4441F</color>
+    <color name="cool">#8FB085</color>
+    <color name="ok">#8FB085</color>
+    <color name="bad">#EF6A57</color>
+    <color name="textMuted">#A89C91</color>
 
-    <color name="warningColor">#FFE082</color>
-    <color name="warningDarkColor">#d35400</color>
-    <color name="separatorColor">#1FFFFFFF</color>
-    <color name="cardHeaderColor">#000000</color>
-    <color name="iconGreen">#ff4CAF50</color>
-    <color name="terminalBackground">#1D1F21</color>
-    <color name="terminalText">#C5C8C6</color>
+    <!-- legacy names kept so existing layouts and code keep resolving -->
+    <color name="primaryColor">@color/accent</color>
+    <color name="primaryLightColor">#F08A68</color>
+    <color name="primaryDarkColor">@color/bg</color>
+    <color name="secondaryColor">@color/cool</color>
+    <color name="secondaryLightColor">#B5CCAB</color>
+    <color name="secondaryDarkColor">#5E7A55</color>
+    <color name="primaryTextColor">#FDF8F3</color>
+    <color name="secondaryTextColor">#1A1512</color>
 
+    <color name="warningColor">@color/surface2</color>
+    <color name="warningDarkColor">#FBBF24</color>
+    <color name="separatorColor">@color/line</color>
+    <color name="cardHeaderColor">#FDF8F3</color>
+    <color name="iconGreen">@color/ok</color>
+    <color name="terminalBackground">#120E0C</color>
+    <color name="terminalText">#E8DFD5</color>
 </resources>

@@ -14,7 +14,7 @@
                   android:layout_marginTop="22dp"
                   android:layout_marginBottom="16dp"
                   android:layout_height="wrap_content"
-                  android:textColor="@android:color/black"
+                  android:textColor="@color/primaryTextColor"
                   android:textStyle="normal"
                   android:fontFamily="sans-serif"
                   android:textSize="16sp"
@@ -35,7 +35,7 @@
                 android:layout_margin="8dp"
                 android:id="@+id/joinTelegramButton"
                 app:icon="@drawable/ic_chat_24px"
-                app:iconColor="@android:color/holo_blue_dark"
+                app:iconColor="@color/cool"
                 app:title="Join our telegram chat"
                 app:subtitle="Feel free to post your feedback"
                 android:layout_height="wrap_content"/>
@@ -46,7 +46,7 @@
                 android:layout_margin="8dp"
                 android:id="@+id/donateButton"
                 app:icon="@drawable/ic_favorite_24px"
-                app:iconColor="@android:color/holo_red_light"
+                app:iconColor="@color/bad"
                 app:title="Donate to the project"
                 app:subtitle="Thank you for your support"
                 android:layout_height="wrap_content"/>

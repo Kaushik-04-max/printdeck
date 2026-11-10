@@ -1,8 +1,9 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
-    id("com.bugsnag.android.gradle")
     id("com.gladed.androidgitversion") version "0.4.14"
 }
 
@@ -13,8 +14,8 @@ android {
         applicationId = "com.octo4a"
         minSdk = 17
         targetSdk = 28
-        versionName = "2.1.0"
-        versionCode = 2001000
+        versionName = "3.0.0"
+        versionCode = 3000000
         multiDexEnabled = true
 
         ndk {
@@ -46,8 +47,25 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    lint {
+        checkReleaseBuilds = false
+    }
+    signingConfigs {
+        create("release") {
+            val props = Properties()
+            val f = file(System.getenv("KEYSTORE_PROPS") ?: rootProject.file("keystore.properties").path)
+            if (f.exists()) {
+                f.inputStream().use { props.load(it) }
+                storeFile = file(props.getProperty("storeFile"))
+                storePassword = props.getProperty("storePassword")
+                keyAlias = props.getProperty("keyAlias")
+                keyPassword = props.getProperty("keyPassword")
+            }
+        }
+    }
     buildTypes {
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -127,8 +145,6 @@ dependencies {
     implementation("io.ktor:ktor-client-gson:$ktorVersion")
     implementation("org.nanohttpd:nanohttpd:2.3.1")
 
-    // Bugsnag bug reporting
-    implementation("com.bugsnag:bugsnag-android:5.12.0")
 
     // Test dependencies
     testImplementation("junit:junit:4.13")

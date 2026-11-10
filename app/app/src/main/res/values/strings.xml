@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OctoPrint For Android</string>
+    <string name="app_name">PrintDeck</string>
     <string name="landing_install">Install OctoPrint</string>
     <string name="landing_no_installation">No existing installation detected</string>
     <string name="landing_description">This application will install OctoPrint server on your android device. Please
@@ -57,10 +57,6 @@
     <string name="bootstrap_not_selected">No bootstrap version selected…</string>
     <string name="missing_network">No network connection</string>
     <string name="tap_to_reinstall">tap to reinstall the app</string>
-    <string name="bugreport_dialog_title">Enable anonymous bug reporting</string>
-    <string name="bugreport_dialog_msg">Octo4a is currently under rapid development. Enabling anonymous bug reporting makes it easier for developers to see what caused the app to malfunction and improve it. You can always change this setting later in the app\'s preferences.</string>
-    <string name="bugreport_dialog_dismiss">No</string>
-    <string name="bugreport_dialog_enable">Yes, enable reporting</string>
     <string name="app_will_restart_to_clear">The app will stop to clear it\'s data. Please start it again and re-install.</string>
     <string name="reinstall_dialog_title">Do you want to clear the app\'s data and restart?</string>
     <string name="reinstall_dialog_continue">Continue</string>

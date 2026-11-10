@@ -50,7 +50,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private val installPluginExtras by lazy { findPreference<Preference>("installPluginExtras") }
     private val imageRotation by lazy { findPreference<ListPreference>("imageRotation") }
     private val manualAF by lazy { findPreference<SwitchPreferenceCompat>("manualAF") }
-    private val enableBugReporting by lazy { findPreference<SwitchPreferenceCompat>("enableBugReporting") }
 
     private val requestCameraPermission =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -63,13 +62,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.main_preferences, rootKey)
-
-        enableBugReporting?.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue as Boolean) {
-                (activity?.application as Octo4aApplication).startBugsnag()
-            }
-            true
-        }
 
         setupSSHSettings()
     }

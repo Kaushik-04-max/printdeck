@@ -14,8 +14,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             app:contentPadding="12dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/line"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
             app:cardBackgroundColor="@color/warningColor">
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -23,7 +25,7 @@
                 android:orientation="vertical">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textColor="@android:color/black"
+                      android:textColor="@color/primaryTextColor"
                       android:textStyle="bold"
                       android:fontFamily="sans-serif"
                       android:textSize="16sp"
@@ -31,7 +33,7 @@
             />
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textColor="@android:color/black"
+                      android:textColor="@color/primaryTextColor"
                       android:textStyle="normal"
                       android:fontFamily="sans-serif-light"
                       android:textSize="16sp"
@@ -57,7 +59,7 @@
             android:layout_margin="8dp"
             android:id="@+id/connectionStatus"
             app:icon="@drawable/ic_usb_24px"
-            app:iconColor="@android:color/holo_blue_dark"
+            app:iconColor="@color/cool"
             app:title="Printer connected"
             app:subtitle="/dev/usb/tty/10/0"
             android:layout_height="wrap_content"/>
@@ -71,7 +73,7 @@
             android:layout_margin="8dp"
             android:id="@+id/camServerStatus"
             app:icon="@drawable/ic_videocam_24px"
-            app:iconColor="@android:color/holo_red_light"
+            app:iconColor="@color/bad"
             app:title="Camera server running"
             app:subtitle="Tap to preview"
             android:layout_height="wrap_content"/>

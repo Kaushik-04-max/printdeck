@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primaryTextColor"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/landing_no_installation"/>
             <TextView
@@ -45,7 +45,7 @@
                     android:layout_marginTop="8dp"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primaryTextColor"
                     android:text="@string/landing_description"/>
         <LinearLayout
             android:orientation="horizontal"
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primaryTextColor"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
@@ -79,6 +79,7 @@
             android:text="@string/landing_install"
             android:textStyle="bold"
             android:background="@android:color/transparent"
+            android:textColor="@color/accent"
             app:cornerRadius="16dp"
             app:strokeColor="@color/primaryColor"
             app:layout_constraintTop_toBottomOf="@id/cardView"

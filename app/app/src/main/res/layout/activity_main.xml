@@ -12,17 +12,18 @@
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
+            android:background="@color/bg"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="OctoPrint for Android"
+                android:text="PRINTDECK"
+                android:letterSpacing="0.14"
                 android:gravity="center"/>
     </androidx.appcompat.widget.Toolbar>
     <fragment
@@ -37,6 +38,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationBar"
+            android:background="@color/surface"
+            app:itemIconTint="@color/nav_item"
+            app:itemTextColor="@color/nav_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/nav_menu"/>

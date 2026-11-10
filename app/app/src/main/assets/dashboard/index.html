@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1A1512">
+<title>PrintDeck</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="2"/><path d="M9 7h6M12 7v5"/><path d="M4 21h16"/></svg></span><span class="wordmark">PRINT<b>DECK</b></span></div>
+  <div class="top-right">
+    <span id="envPill" class="pill ghost" title="Sensor" hidden></span>
+    <span id="statePill" class="pill">Connecting</span>
+    <button id="btnSettings" class="icon-btn" aria-label="Settings">
+      <svg viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.4-2.5a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.4 7.4 0 0 0-1.7-1L15 3.5h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.3-1-2 3.4 2 1.5a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.3 1 2-3.4-2-1.5Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="banner" class="banner" hidden></div>
+
+<main>
+  <!-- PRINT -->
+  <section id="tab-print" class="tab active">
+    <div class="grid">
+      <article class="card hero">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle id="ringFg" class="ring-fg" cx="60" cy="60" r="52" pathLength="100"/>
+          </svg>
+          <div class="ring-text">
+            <div id="pct" class="pct">--</div>
+            <div id="pctLabel" class="sub">idle</div>
+          </div>
+        </div>
+        <div class="hero-info">
+          <div class="label">Current job</div>
+          <h2 id="jobName" class="job-name">No file selected</h2>
+          <dl class="facts">
+            <div><dt>Elapsed</dt><dd id="tElapsed">--</dd></div>
+            <div><dt>Remaining</dt><dd id="tLeft">--</dd></div>
+            <div><dt>Finishes</dt><dd id="tEta">--</dd></div>
+            <div><dt>Filament</dt><dd id="fil">--</dd></div>
+          </dl>
+          <div class="actions">
+            <button id="btnPause" class="btn" disabled>Pause</button>
+            <button id="btnCancel" class="btn danger" disabled>Cancel</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card cam">
+        <div class="card-head"><span class="label">Camera</span>
+          <button id="btnCamFull" class="link">Fullscreen</button></div>
+        <div class="cam-box"><img id="camImg" alt="Printer camera"><div id="camOff" class="cam-off">Camera off</div></div>
+      </article>
+
+      <article class="card temp" data-heater="tool0">
+        <div class="card-head"><span class="label">Nozzle</span><span class="heater-state" id="toolState">off</span></div>
+        <div class="temp-main"><span id="toolNow" class="now">--</span><span class="unit">°C</span>
+          <span class="target">→ <b id="toolTarget">0</b>°</span></div>
+        <canvas id="toolChart" class="spark"></canvas>
+        <div class="presets" data-target="tool">
+          <button data-v="0">Off</button><button data-v="200">PLA 200</button><button data-v="235">PETG 235</button><button class="custom">Set…</button>
+        </div>
+      </article>
+
+      <article class="card temp" data-heater="bed">
+        <div class="card-head"><span class="label">Bed</span><span class="heater-state" id="bedState">off</span></div>
+        <div class="temp-main"><span id="bedNow" class="now">--</span><span class="unit">°C</span>
+          <span class="target">→ <b id="bedTarget">0</b>°</span></div>
+        <canvas id="bedChart" class="spark"></canvas>
+        <div class="presets" data-target="bed">
+          <button data-v="0">Off</button><button data-v="60">PLA 60</button><button data-v="80">PETG 80</button><button class="custom">Set…</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FILES -->
+  <section id="tab-files" class="tab">
+    <div id="drop" class="drop">
+      <input id="fileInput" type="file" accept=".gcode,.gco,.g,.stl" multiple hidden>
+      <div class="drop-title">Send a print</div>
+      <div class="sub">Drop G-code here, or <button id="btnPick" class="link">choose files</button></div>
+      <label class="check"><input id="autoPrint" type="checkbox"> Start printing right after upload</label>
+      <div id="upBar" class="up-bar" hidden><i id="upFill"></i></div>
+    </div>
+    <div class="list-head"><span class="label">Library</span><span id="free" class="sub"></span></div>
+    <ul id="fileList" class="files"></ul>
+  </section>
+
+  <!-- CONTROL -->
+  <section id="tab-control" class="tab">
+    <div class="grid two">
+      <article class="card">
+        <div class="card-head"><span class="label">Move</span>
+          <select id="step"><option>0.1</option><option>1</option><option selected>10</option><option>50</option></select></div>
+        <div class="jog">
+          <button data-j="y+">Y+</button><button data-j="z+">Z+</button>
+          <button data-j="x-">X−</button><button data-j="home" class="home">Home</button><button data-j="x+">X+</button>
+          <button data-j="y-">Y−</button><button data-j="z-">Z−</button>
+        </div>
+        <div class="presets"><button data-home="x,y">Home XY</button><button data-home="z">Home Z</button><button data-home="x,y,z">Home all</button></div>
+        <div class="presets"><button data-ext="-5">Retract 5</button><button data-ext="5">Extrude 5</button><button id="btnOff">Heaters off</button><button id="btnM84">Motors off</button></div>
+      </article>
+      <article class="card">
+        <div class="card-head"><span class="label">Console</span></div>
+        <pre id="console" class="console"></pre>
+        <form id="gform" class="gform"><input id="gline" placeholder="G-code, e.g. M105" autocomplete="off" spellcheck="false"><button class="btn">Send</button></form>
+      </article>
+    </div>
+  </section>
+
+  <!-- AGENT -->
+  <section id="tab-agent" class="tab">
+    <div class="card">
+      <div class="card-head"><span class="label">Watchdog</span><span id="agentState" class="heater-state">local rules on</span></div>
+      <p class="sub">Rules run in this app while it is open. Alerts also appear here.</p>
+      <ul id="rules" class="rules"></ul>
+    </div>
+    <div class="list-head"><span class="label">Alerts</span><button id="btnClearAlerts" class="link">Clear</button></div>
+    <ul id="alerts" class="alerts"></ul>
+  </section>
+</main>
+
+<nav class="tabs">
+  <button data-tab="print" class="on"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg><span>Print</span></button>
+  <button data-tab="files"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v6h6"/></svg><span>Files</span></button>
+  <button data-tab="control"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><path d="m8 7 4-4 4 4M8 17l4 4 4-4M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg><span>Control</span></button>
+  <button data-tab="agent"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Agent</span><i id="alertDot" hidden></i></button>
+</nav>
+
+<!-- settings sheet -->
+<dialog id="dlgSettings">
+  <form method="dialog" id="fSettings">
+    <h3>Connection</h3>
+    <label>OctoPrint address<input id="sBase" placeholder="http://127.0.0.1:5000"></label>
+    <label>API key<input id="sKey" placeholder="Settings → Application Keys" autocomplete="off" spellcheck="false"></label>
+    <label>Camera address<input id="sCam" placeholder="http://127.0.0.1:5001"></label>
+    <label>Environment sensor (optional)<input id="sEnv" placeholder="http://sensor.local"></label>
+    <div class="row">
+      <label class="check"><input id="sHumid" type="checkbox"> Warn on high humidity</label>
+    </div>
+    <div class="actions"><button value="cancel" class="btn ghost">Cancel</button><button id="sSave" value="save" class="btn primary">Save</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgTemp"><form method="dialog">
+  <h3 id="tempTitle">Set temperature</h3>
+  <label>Target °C<input id="tempVal" type="number" min="0" max="300" inputmode="numeric"></label>
+  <div class="actions"><button value="cancel" class="btn ghost">Cancel</button><button value="ok" class="btn primary">Set</button></div>
+</form></dialog>
+
+<dialog id="dlgConfirm"><form method="dialog">
+  <h3 id="cTitle">Confirm</h3><p id="cText" class="sub"></p>
+  <div class="actions"><button value="cancel" class="btn ghost">Back</button><button id="cOk" value="ok" class="btn danger">Confirm</button></div>
+</form></dialog>
+
+<div id="camFull" class="cam-full" hidden><img id="camFullImg" alt=""><button id="btnCamClose" class="btn">Close</button></div>
+<div id="toast" class="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

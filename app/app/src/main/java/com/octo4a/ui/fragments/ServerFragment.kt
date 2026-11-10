@@ -35,7 +35,6 @@ import com.octo4a.repository.ServerStatus
 import com.octo4a.serial.VirtualSerialDriver
 import com.octo4a.ui.InitialActivity
 import com.octo4a.ui.WebinterfaceActivity
-import com.octo4a.ui.showBugReportingDialog
 import com.octo4a.ui.views.UsbDeviceView
 import com.octo4a.utils.preferences.MainPreferences
 import com.octo4a.utils.ManualLifecycleOwner

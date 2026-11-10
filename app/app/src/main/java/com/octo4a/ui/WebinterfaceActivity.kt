@@ -16,6 +16,8 @@ import com.octo4a.R
 import kotlinx.android.synthetic.main.activity_webinterface.*
 
 const val WEBINTERFACE_ADDRESS = "127.0.0.1:5000"
+const val DASHBOARD_URL = "file:///android_asset/dashboard/index.html"
+const val CLASSIC_UI_URL = "http://$WEBINTERFACE_ADDRESS"
 
 class WebinterfaceActivity : AppCompatActivity() {
 
@@ -29,15 +31,17 @@ class WebinterfaceActivity : AppCompatActivity() {
         webview.settings.domStorageEnabled = true
         webview.settings.userAgentString = "TouchUI"
         webview.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        webview.loadUrl("http://$WEBINTERFACE_ADDRESS")
+        // The dashboard ships inside the app and calls OctoPrint's REST API on localhost.
+        webview.settings.allowFileAccess = true
+        webview.settings.allowUniversalAccessFromFileURLs = true
+        webview.addJavascriptInterface(DashboardBridge(applicationContext), "Octo4a")
+        webview.setBackgroundColor(0xFF1A1512.toInt())
+        webview.loadUrl(DASHBOARD_URL)
     }
 
     override fun onResume() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && !isPinned()) {
-            startLockTask()
-        }
         super.onResume()
     }
 
@@ -78,7 +82,8 @@ class WebinterfaceActivity : AppCompatActivity() {
             view: WebView?,
             request: WebResourceRequest?
         ): Boolean {
-            return if (request?.url?.authority == WEBINTERFACE_ADDRESS) {
+            val url = request?.url
+            return if (url?.authority == WEBINTERFACE_ADDRESS || url?.scheme == "file") {
                 false
             } else {
                 activity.stopLockTask()

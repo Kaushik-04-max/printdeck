@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:text="Installation in progress"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="sans-serif-light"
                 android:text="This might take a while depending on your network connection (Up to 10 minutes)"
-                android:textColor="@android:color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="16sp" />
 
             <com.octo4a.ui.views.InstallationProgressItem
@@ -136,7 +136,8 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/seeLogsButton"
                 android:layout_width="match_parent"
-                android:background="@color/cardview_light_background"
+                android:background="@color/surface2"
+                android:textColor="@color/primaryTextColor"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:text="@string/see_logs"
@@ -151,7 +152,7 @@
                 android:id="@+id/clearDataAndRestart"
                 android:layout_width="match_parent"
                 android:background="@android:color/transparent"
-                android:textColor="#000"
+                android:textColor="@color/primaryTextColor"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:text="@string/clear_data_and_restart"
@@ -170,6 +171,7 @@
             android:text="Continue"
             android:textStyle="bold"
             android:background="@android:color/transparent"
+            android:textColor="@color/accent"
             app:cornerRadius="16dp"
             app:strokeColor="@color/primaryColor"
             app:layout_constraintTop_toBottomOf="@id/cardView"

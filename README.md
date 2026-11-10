@@ -1,83 +1,54 @@
-# octo4a - Run OctoPrint on Android
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/feelfreelinux)
-![GitHub Sponsors](https://img.shields.io/github/sponsors/feelfreelinux)
-![IzzySoft](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.octo4a)
+# PrintDeck
 
+**Turn an old Android phone into a smart 3D-printer controller.**
 
-![A banner visually expaining how the app works](.github/readme-banner.png)
+PrintDeck runs [OctoPrint](https://octoprint.org) on your phone and gives it a clean, touch-first dashboard, so you can start, watch and manage prints without a Raspberry Pi and without OctoPrint's desktop-style web UI.
 
-You don't have a Raspberry Pi, but you want to control your 3D printer remotely? Use your phone as an octoprint host! With the Octo4a app you can install Octoprint on your android phone in minutes, without any special Linux knowledge.
+PrintDeck is a redesigned fork of [octo4a](https://github.com/feelfreelinux/octo4a) by feelfreelinux and contributors, which does the hard work of running OctoPrint on Android. Many thanks to them.
 
-## Important note about charging and using OTG
+## What's different
 
-Some phones do not support simultaneous charging and USB on the go (OTG). Please consult this community contributed list of phones our users use, If you wish to buy a phone for the purpose of running octo4a:
+- **New dashboard** built into the app: live progress ring, nozzle and bed temperatures with sparklines, camera view, file library with drag-and-drop upload, jog controls and a G-code console.
+- **Watchdog tab**: local rules that alert you about runaway or stuck heaters, temperature drops, lost connections and finished or failed prints, with an optional auto-pause.
+- **Refreshed native screens**: dark and light friendly, consistent type and colour.
+- **No telemetry.** The bug-reporting SDK was removed entirely.
+- **No screen pinning**, so the app behaves like a normal app.
+- The classic OctoPrint web UI is still there at `http://<phone-ip>:5000`.
 
-https://docs.google.com/spreadsheets/d/1pbKAELzvTrMVm6NpDpK8TfQR33w3QHQEgqkcGdbPFI0/edit?usp=sharing
+## Install
 
-If you have a phone that is not on the list, please add it and let us know if it works or not:
+1. Download the latest `PrintDeck-x.y.z.apk` from the [Releases](../../releases) page.
+2. Allow installing apps from this source when Android asks.
+3. Open PrintDeck and tap **Install OctoPrint**. It needs an internet connection and takes a few minutes.
+4. Plug your printer into the phone with a USB OTG cable and power it on.
+5. Open the dashboard and tap **Connect**.
 
-https://forms.gle/cnTtdDqG3UcwTgnW9
+> Some phones can't charge while using USB OTG. Check that yours copes with that before leaving a long print unattended.
 
-## Download
+## Build from source
 
-Newest `.apk` files are available in the [releases page](https://github.com/feelfreelinux/octo4a/releases).
+Requirements: JDK 11, Android SDK (platform 28, build-tools 30.0.3, NDK 21.4.7075529, CMake 3.18.1).
 
-## Usage
-
-1. Enable installing 3rd-party .apk in your phone's settings.
-2. Install the apk file downloaded from the releases page.
-3. Open the app.
-4. Click "Install OctoPrint" to download and install OctoPrint (needs working connection to internet & querries Google DNS servers 8.8.8.8 and 8.8.4.4)
-5. Allow the app to access the storage, if asked for permission.
-6. Wait for the installation to complete. This may take a long time, depending on your internet speed.
-7. Click "Continue" when the installation finishes.
-8. Optionally start the camera server to enable watching your printer from octoprint. 
-9. Navigate to the IP address shown at the top in your browser to access and set-up OctoPrint.
-10. Happy printing!
-
-## Features
-
-- Quick and easy octoprint installation.
-- Printer connection via USB OTG. Thanks to our custom USB driver you can use octoprint even on phones without root access.
-- Built-in camera support. You can use the built-in camera in your phone to see the progress of your 3D prints, instead of buying a separate module. The app also supports  octolapse.
-- SSH support. You can easily log-in via ssh and customize your octoprint installation. 
-
-## Wiki
-
-FAQ and many different topics are described in the [project's wiki](https://github.com/feelfreelinux/octo4a/wiki)
-
-## Video tutorials
-
-Here are some video tutorials made by the octo4a community that will help you with setting everything up:
-
-- ["Octo4A - Octoprint On Your Android Phone - 2022 - Chris's Basement"  by Chris Riley](https://www.youtube.com/watch?v=2Psbwc-NFTU)
-
-  [![Video tutorial by Chris Riley - thumbnail](https://img.youtube.com/vi/2Psbwc-NFTU/0.jpg)](https://www.youtube.com/watch?v=2Psbwc-NFTU)
-- ["How to run OctoPrint on your phone!"  by Thomas Sanladerer](https://www.youtube.com/watch?v=74xdib_-X38)
-
-  [![Video tutorial by Thomas Sanladerer - thumbnail](https://img.youtube.com/vi/74xdib_-X38/0.jpg)](https://www.youtube.com/watch?v=74xdib_-X38)
-- ["Running OctoPrint on Android with Octo4a!"  by Sumit Basra](https://www.youtube.com/watch?v=X56itQuqXY4)
-
-  [![Video tutorial by Sumit Basra - thumbnail](https://img.youtube.com/vi/X56itQuqXY4/0.jpg)](https://www.youtube.com/watch?v=X56itQuqXY4)
-
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## Donating
-
-If you like this project, feel free to [donate on PayPal](https://paypal.me/feelfreelinux) or [sponsor me on GitHub](https://github.com/sponsors/feelfreelinux). This project heavily relies on great work done on [OctoPrint](https://www.patreon.com/foosel) so please consider donating to them if you like this app. Thank you for your support :)
-
-## Disclaimer
-
-```
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```bash
+cd app
+./gradlew assembleDebug
 ```
 
-TL;DR: If your house burns down because this app malfunctioned, you cannot sue me.
+For a signed release, create `keystore.properties` in `app/` (it is git-ignored):
 
+```properties
+storeFile=/path/to/your.jks
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
 
-## License
+then run `./gradlew assembleRelease`.
 
-This project is licensed under the AGPL license.
+The dashboard is plain HTML, CSS and JavaScript in `app/app/src/main/assets/dashboard/`. It has no build step and talks to OctoPrint's REST API with the key it reads from the app.
+
+## Credits and licence
+
+Based on octo4a, © feelfreelinux and contributors. Licensed under the [GNU AGPL v3](LICENSE.md). If you distribute a modified build, you must publish its source under the same licence.
+
+Dashboard font: [Chakra Petch](https://fonts.google.com/specimen/Chakra+Petch), SIL Open Font License.

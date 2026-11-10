@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             showBatteryOptimizationDialog()
         }
 
-        showBugReportingDialog(mainPreferences)
 
         startCameraServerIfNeeded()
     }

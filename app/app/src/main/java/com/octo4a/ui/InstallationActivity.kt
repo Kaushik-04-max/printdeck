@@ -35,7 +35,6 @@ class InstallationActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        showBugReportingDialog(MainPreferences(this))
 
         installationViewModel.serverStatus.observe(this) {
             if(it == ServerStatus.InstallationError) {

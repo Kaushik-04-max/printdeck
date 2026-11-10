@@ -1,6 +1,5 @@
 package com.octo4a.utils
 
-import com.bugsnag.android.Bugsnag
 import com.octo4a.repository.LogType
 import com.octo4a.repository.LoggerRepository
 import kotlinx.coroutines.CoroutineScope
